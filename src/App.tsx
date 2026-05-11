@@ -47,6 +47,9 @@ import NewTeacherForm from '@/views/management/user/NewTeacherForm'
 import EditUser from '@/views/management/user/EditUser'
 import NewSchoolForm from '@/views/management/school/NewSchoolForm'
 import EditSchoolForm from '@/views/management/school/EditSchoolForm'
+import Compare from '@/views/info/Compare'
+import NewContentForm from '@/views/management/syllabus/NewContentForm'
+import EditContentForm from '@/views/management/syllabus/EditContentForm'
 
 const { Content, Sider, Header } = Layout
 
@@ -200,6 +203,9 @@ export default function App() {
               <Route path="/management/user/edit" element={<EditUser />} />
               <Route path="/management/school/new" element={<NewSchoolForm />} />
               <Route path="/management/school/edit" element={<EditSchoolForm />} />
+              <Route path="/compare" element={<Compare />} />
+              <Route path="/management/syllabus/add" element={<NewContentForm />} />
+              <Route path="/management/syllabus/edit" element={<EditContentForm />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Content>

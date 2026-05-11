@@ -20,7 +20,7 @@ export interface Syllabus {
   id: number
   title: string
   code?: string
-  unit?: string
+  unit?: number
   hours?: number
   offer_unit?: string
   pre_req?: string
@@ -37,6 +37,7 @@ export interface Syllabus {
 }
 
 export interface CourseContent {
+  id?: number
   content_id: number
   title: string
   content: string
@@ -53,15 +54,16 @@ export interface Cilo {
   id: number
   cilo_id: number
   content: string
-  pilo_cilos: Array<{ pilo_id: number }>
-  tla?: { content: string }
+  pilo_cilos: Array<{ id?: number; pilo_id: number; cilo_id?: number }>
+  tla?: { id?: number; content: string }
 }
 
 export interface Assessment {
+  id?: number
   method: string
   weighting: number
   description: string
-  assessment_cilos: Array<{ cilo_id: number }>
+  assessment_cilos: Array<{ id?: number; cilo_id: number; assessment_id?: number }>
 }
 
 export interface TextBook {
