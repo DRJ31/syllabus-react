@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Form, Input, Button, Typography, Breadcrumb, message } from 'antd'
+import { Form, Input, Button, Typography, Breadcrumb, App } from 'antd'
 import axios from 'axios'
 
 const { Title } = Typography
@@ -14,6 +14,7 @@ interface EditSchoolData {
 }
 
 export default function EditSchoolForm() {
+  const { message } = App.useApp()
   const location = useLocation()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)

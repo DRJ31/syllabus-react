@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Form, Input, Button, Typography, message } from 'antd'
+import { Form, Input, Button, Typography, App } from 'antd'
 import axios from 'axios'
 
 const { Title } = Typography
 
 export default function ForgetPassword() {
+  const { message } = App.useApp()
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 

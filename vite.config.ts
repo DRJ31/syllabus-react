@@ -2,7 +2,8 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
+  base: mode === 'production' ? 'https://cdn.drjchn.com/syllabus/' : '/',
   plugins: [react()],
   resolve: {
     alias: {
@@ -13,9 +14,13 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: 'https://syllabus.drjchn.com',
+        changeOrigin: true,
+      },
+      '/static': {
+        target: 'https://syllabus.drjchn.com',
         changeOrigin: true,
       },
     },
   },
-})
+}))

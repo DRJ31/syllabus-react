@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Card, Row, Col, Typography, Skeleton, Divider, Tooltip, message } from 'antd'
+import { Card, Row, Col, Typography, Skeleton, Divider, Tooltip, App } from 'antd'
 import {
   BankOutlined, EnvironmentOutlined, FileTextOutlined,
   LoadingOutlined, StarOutlined, StarFilled, CopyOutlined,
@@ -20,10 +20,6 @@ function pickRandom<T>(arr: T[], n: number): T[] {
     copy.splice(idx, 1)
   }
   return result
-}
-
-function copyToClipboard(text: string, successMsg: string) {
-  navigator.clipboard.writeText(text).then(() => message.success(successMsg))
 }
 
 interface SectionTitleProps { title: string; href: string }
@@ -59,6 +55,7 @@ const InfoCard = ({ title, href, info, extra }: InfoCardProps) => (
 interface FavItem { id: number }
 
 export default function Home() {
+  const { message } = App.useApp()
   const [courses, setCourses] = useState<Syllabus[]>([])
   const [schools, setSchools] = useState<School[]>([])
   const [loading, setLoading] = useState(true)
@@ -70,6 +67,9 @@ export default function Home() {
   const userInfo = new UserInfo()
 
   const isFav = (arr: FavItem[], id: number) => arr.some(f => f.id === id)
+
+  const copyToClipboard = (text: string, successMsg: string) =>
+    navigator.clipboard.writeText(text).then(() => message.success(successMsg))
 
   useEffect(() => {
     const session = userInfo.getUserInfo()

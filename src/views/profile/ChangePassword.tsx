@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Form, Input, Button, Typography, message } from 'antd'
+import { Form, Input, Button, Typography, App } from 'antd'
 import axios from 'axios'
 import { UserInfo } from '@/utils/auth'
 
 const { Title } = Typography
 
 export default function ChangePassword() {
+  const { message } = App.useApp()
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
   const navigate = useNavigate()

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Input, Table, Tooltip, Breadcrumb, Skeleton, message, Divider, Space } from 'antd'
+import { Input, Table, Tooltip, Breadcrumb, Skeleton, App, Divider, Space } from 'antd'
 import { LoadingOutlined, StarOutlined, StarFilled, CopyOutlined } from '@ant-design/icons'
 import type { TableColumnsType } from 'antd'
 import axios from 'axios'
@@ -17,11 +17,8 @@ interface SchoolRow extends School {
 const searchWord = (keyword: string, origin: string) =>
   origin.toLowerCase().includes(keyword.toLowerCase())
 
-function copyToClipboard(text: string, msg: string) {
-  navigator.clipboard.writeText(text).then(() => message.success(msg))
-}
-
 export default function All() {
+  const { message } = App.useApp()
   const location = useLocation()
   const category = location.pathname.split('/')[1] === 'school' ? 'school' : 'course'
 
@@ -32,6 +29,9 @@ export default function All() {
   const [favIds, setFavIds] = useState<number[]>([])
 
   const userInfo = new UserInfo()
+
+  const copyToClipboard = (text: string, msg: string) =>
+    navigator.clipboard.writeText(text).then(() => message.success(msg))
 
   useEffect(() => {
     const session = userInfo.getUserInfo()

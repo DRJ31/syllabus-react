@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { Form, Input, Button, Typography, Alert, message } from 'antd'
+import { Form, Input, Button, Typography, Alert, App } from 'antd'
 import axios from 'axios'
 
 const { Title, Text } = Typography
 
 export default function ResetPassword() {
+  const { message } = App.useApp()
   const { token } = useParams<{ token: string }>()
   const [valid, setValid] = useState(false)
   const [loading, setLoading] = useState(false)

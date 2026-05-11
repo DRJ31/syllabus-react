@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Input, Table, Divider, Tooltip, Button, Row, Skeleton, Breadcrumb, message } from 'antd'
+import { Input, Table, Divider, Tooltip, Button, Row, Skeleton, Breadcrumb, App } from 'antd'
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons'
 import type { TableColumnsType } from 'antd'
 import axios from 'axios'
@@ -14,6 +14,7 @@ const searchWord = (keyword: string, origin: string) =>
   origin.toLowerCase().includes(keyword.toLowerCase())
 
 export default function AuditTeacher() {
+  const { message } = App.useApp()
   const [data, setData] = useState<Audit[]>([])
   const [results, setResults] = useState<Audit[]>([])
   const [loading, setLoading] = useState(true)

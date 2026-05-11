@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Table, Breadcrumb, Skeleton, Input, Button, Typography, List,
-  Row, Tooltip, Collapse, Col, Divider, Tag, message, Drawer, Badge,
+  Row, Tooltip, Collapse, Col, Divider, Tag, App, Drawer, Badge,
 } from 'antd'
 import { PlusOutlined, MinusOutlined, DeleteOutlined, ClockCircleOutlined } from '@ant-design/icons'
 import type { TableColumnsType, CollapseProps } from 'antd'
@@ -13,9 +13,9 @@ const { Title, Paragraph, Text } = Typography
 
 const panelStyle: React.CSSProperties = {
   background: '#f7f7f7',
-  borderRadius: 4,
-  marginBottom: 24,
-  border: 0,
+  borderRadius: 8,
+  marginBottom: 12,
+  border: '1px solid #e8e8e8',
   overflow: 'hidden',
 }
 
@@ -81,6 +81,7 @@ function CompareTablePanel(cols: TableColumnsType<never>, field: keyof Syllabus,
 }
 
 export default function Compare() {
+  const { message } = App.useApp()
   const [data, setData] = useState<Syllabus[]>([])
   const [results, setResults] = useState<Syllabus[]>([])
   const [loading, setLoading] = useState(true)
@@ -246,9 +247,9 @@ export default function Compare() {
           style={{ marginTop: 10 }}
           onKeyDown={e => { if (e.key === 'Enter') handleSearch() }}
         />
-        <Row style={{ marginTop: 10, marginRight: 10 }}>
-          <Button type="primary" style={{ float: 'right' }} onClick={handleSearch}>Search</Button>
-          <Button style={{ float: 'right', marginRight: 20 }} onClick={handleClear}>Clear</Button>
+        <Row style={{ marginTop: 10, gap: 8 }}>
+          <Button type="primary" onClick={handleSearch}>Search</Button>
+          <Button onClick={handleClear}>Clear</Button>
         </Row>
         <Row style={{ marginTop: 10 }}>
           <Badge count={selectedRowKeys.length}>
@@ -271,16 +272,16 @@ export default function Compare() {
             open={compareOpen}
           >
             {compare.length === 2 && (
-              <Collapse bordered={false} defaultActiveKey={defaultActiveKeys} items={collapseItems} />
+              <Collapse bordered={false} defaultActiveKey={defaultActiveKeys} items={collapseItems} style={{ background: 'transparent' }} />
             )}
           </Drawer>
 
-          <Row style={{ marginBottom: 20 }}>
+          <Row style={{ marginBottom: 20, gap: 8, flexWrap: 'wrap' }}>
             {realCompare.map(id => {
               const item = findItem(id)
               if (!item) return null
               return (
-                <Tag key={id} closable onClose={e => { e.preventDefault(); setRealCompare(prev => prev.filter(x => x !== id)) }}>
+                <Tag key={id} closable onClose={e => { e.preventDefault(); setRealCompare(prev => prev.filter(x => x !== id)) }} style={{ whiteSpace: 'normal', maxWidth: '100%' }}>
                   {item.title}, {item.school.name}
                 </Tag>
               )

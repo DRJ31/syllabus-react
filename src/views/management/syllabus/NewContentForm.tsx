@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Breadcrumb, Input, InputNumber, Form, Button, Select, Typography, message } from 'antd'
+import { Breadcrumb, Input, InputNumber, Form, Button, Select, Typography, App } from 'antd'
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons'
 import axios from 'axios'
 import { UserInfo } from '@/utils/auth'
@@ -36,6 +36,7 @@ const Bread = () => (
 )
 
 export default function NewContentForm() {
+  const { message } = App.useApp()
   const [loading, setLoading] = useState(false)
   const [schoolId, setSchoolId] = useState(0)
   const [editorId, setEditorId] = useState(0)

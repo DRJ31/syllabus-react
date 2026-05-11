@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Form, Input, Tooltip, Button, Typography, Skeleton, Select, Upload, message } from 'antd'
+import { Form, Input, Tooltip, Button, Typography, Skeleton, Select, Upload, App } from 'antd'
 import { QuestionCircleOutlined, UploadOutlined } from '@ant-design/icons'
 import type { UploadFile } from 'antd'
 import axios from 'axios'
@@ -10,6 +10,7 @@ import type { School } from '@/types'
 const { Title } = Typography
 
 export default function EditProfile() {
+  const { message } = App.useApp()
   const [loading, setLoading] = useState(true)
   const [btnLoading, setBtnLoading] = useState(false)
   const [schools, setSchools] = useState<School[]>([])
@@ -66,7 +67,6 @@ export default function EditProfile() {
                 formData.append('file', file as File)
                 formData.append('token', session.token)
                 axios.post('/api/user/avatar/upload', formData, {
-                  headers: { 'Content-Type': 'multipart/form-data' },
                   onUploadProgress: e => onProgress?.({ percent: (e.loaded / (e.total ?? 1)) * 100 }),
                 }).then(rsp => onSuccess?.(rsp.data))
               }}

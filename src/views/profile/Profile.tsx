@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Typography, Card, Tabs, Tooltip, Divider, Table, Breadcrumb, Tag, message, Skeleton, Avatar } from 'antd'
+import { Typography, Card, Tabs, Tooltip, Divider, Table, Breadcrumb, Tag, App, Skeleton, Avatar } from 'antd'
 import { UserOutlined, StarFilled, CopyOutlined } from '@ant-design/icons'
 import type { TableColumnsType } from 'antd'
 import axios from 'axios'
@@ -19,11 +19,8 @@ const roles = [
 
 const nullUser: ProfileUser = { id: null, username: null, email: null, role_id: 4, school: null }
 
-function copyToClipboard(text: string, msg: string) {
-  navigator.clipboard.writeText(text).then(() => message.success(msg))
-}
-
 export default function Profile() {
+  const { message } = App.useApp()
   const location = useLocation()
   const [user, setUser] = useState<ProfileUser>(nullUser)
   const [courses, setCourses] = useState<Syllabus[]>([])
@@ -33,6 +30,9 @@ export default function Profile() {
   const [avatar, setAvatar] = useState('')
 
   const userInfo = new UserInfo()
+
+  const copyToClipboard = (text: string, msg: string) =>
+    navigator.clipboard.writeText(text).then(() => message.success(msg))
 
   useEffect(() => {
     const session = userInfo.getUserInfo()

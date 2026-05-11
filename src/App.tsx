@@ -6,7 +6,7 @@ import {
   Avatar,
   Badge,
   Dropdown,
-  message,
+  App as AntdApp,
   type MenuProps,
 } from 'antd'
 import {
@@ -62,6 +62,7 @@ export default function App() {
   const navigate = useNavigate()
   const location = useLocation()
   const userInfo = new UserInfo()
+  const { message } = AntdApp.useApp()
 
   const fetchDot = useCallback(async (roleId: number, token: string) => {
     if (roleId === 1) {
@@ -151,8 +152,8 @@ export default function App() {
   ]
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Header style={{ background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px' }}>
+    <Layout style={{ height: '100vh' }}>
+      <Header style={{ background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px', flexShrink: 0 }}>
         <Link to="/" style={{ color: '#000', fontWeight: 600, fontSize: 18 }}>
           CS Syllabus Repo
         </Link>
@@ -161,14 +162,14 @@ export default function App() {
         </Dropdown>
       </Header>
 
-      <Layout>
+      <Layout style={{ overflow: 'hidden' }}>
         <Sider
           breakpoint="lg"
           collapsedWidth={0}
           theme="light"
           collapsed={collapsed}
           onCollapse={setCollapsed}
-          style={{ zIndex: 100 }}
+          style={{ zIndex: 100, overflow: 'hidden' }}
         >
           <Menu
             mode="inline"
@@ -178,7 +179,7 @@ export default function App() {
         </Sider>
 
         <Layout>
-          <Content style={{ padding: 24, overflowX: 'hidden' }}>
+          <Content style={{ padding: 24, overflowY: 'auto', overflowX: 'hidden' }}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/search" element={<SearchPage />} />

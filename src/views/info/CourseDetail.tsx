@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams, useLocation } from 'react-router-dom'
-import { Typography, Button, Tooltip, Breadcrumb, Table, Skeleton, message } from 'antd'
+import { Typography, Button, Tooltip, Breadcrumb, Table, Skeleton, App } from 'antd'
 import { LoadingOutlined, StarOutlined, StarFilled, CopyOutlined, ClockCircleOutlined } from '@ant-design/icons'
 import type { TableColumnsType } from 'antd'
 import axios from 'axios'
@@ -9,11 +9,8 @@ import type { Syllabus, Pilo, Cilo, Assessment, TextBook } from '@/types'
 
 const { Title, Paragraph, Text } = Typography
 
-function copyToClipboard(text: string, msg: string) {
-  navigator.clipboard.writeText(text).then(() => message.success(msg))
-}
-
 export default function CourseDetail() {
+  const { message } = App.useApp()
   const { id } = useParams<{ id: string }>()
   const location = useLocation()
   const referrer = (location.state as { referrer?: string } | null)?.referrer
@@ -24,6 +21,9 @@ export default function CourseDetail() {
   const [favLoading, setFavLoading] = useState(false)
 
   const userInfo = new UserInfo()
+
+  const copyToClipboard = (text: string, msg: string) =>
+    navigator.clipboard.writeText(text).then(() => message.success(msg))
 
   const getPiloById = (piloId: number) =>
     data.pilos?.find(p => p.id === piloId)?.pilo_id

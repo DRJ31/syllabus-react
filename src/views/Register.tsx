@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Form, Input, Tooltip, Button, Typography, Breadcrumb, message } from 'antd'
+import { Form, Input, Tooltip, Button, Typography, Breadcrumb, App } from 'antd'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 import axios from 'axios'
 
 const { Title } = Typography
 
 export default function Register() {
+  const { message } = App.useApp()
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
   const navigate = useNavigate()

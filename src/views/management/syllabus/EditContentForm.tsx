@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Breadcrumb, Input, InputNumber, Form, Button, Select, Typography, message } from 'antd'
+import { Breadcrumb, Input, InputNumber, Form, Button, Select, Typography, App } from 'antd'
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons'
 import axios from 'axios'
 import type { Syllabus, Pilo, Cilo, Assessment } from '@/types'
@@ -61,6 +61,7 @@ const Bread = () => (
 )
 
 export default function EditContentForm() {
+  const { message } = App.useApp()
   const location = useLocation()
   const navigate = useNavigate()
   const data = (location.state as { data: Syllabus } | null)?.data

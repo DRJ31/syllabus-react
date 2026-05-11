@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Form, Button, Upload, Typography, Breadcrumb, Select, message } from 'antd'
+import { Form, Button, Upload, Typography, Breadcrumb, Select, App } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
 import type { UploadFile } from 'antd'
 import axios from 'axios'
@@ -10,6 +10,7 @@ import type { School } from '@/types'
 const { Title } = Typography
 
 export default function NewTeacherForm() {
+  const { message } = App.useApp()
   const [schools, setSchools] = useState<School[]>([])
   const [fileList, setFileList] = useState<UploadFile[]>([])
   const [filename, setFilename] = useState('')

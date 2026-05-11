@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Input, Table, Tooltip, Breadcrumb, Button, Row, Skeleton, message, Divider, Space } from 'antd'
+import { Input, Table, Tooltip, Breadcrumb, Button, Row, Skeleton, App, Divider, Space } from 'antd'
 import { LoadingOutlined, StarOutlined, StarFilled, CopyOutlined } from '@ant-design/icons'
 import type { TableColumnsType } from 'antd'
 import axios from 'axios'
@@ -15,11 +15,8 @@ interface SyllabusRow extends Syllabus {
 const searchWord = (keyword: string, origin: string) =>
   origin.toLowerCase().includes(keyword.toLowerCase())
 
-function copyToClipboard(text: string, msg: string) {
-  navigator.clipboard.writeText(text).then(() => message.success(msg))
-}
-
 export default function SearchPage() {
+  const { message } = App.useApp()
   const location = useLocation()
   const [data, setData] = useState<SyllabusRow[]>([])
   const [results, setResults] = useState<SyllabusRow[]>([])
@@ -28,6 +25,9 @@ export default function SearchPage() {
   const [favIds, setFavIds] = useState<number[]>([])
 
   const userInfo = new UserInfo()
+
+  const copyToClipboard = (text: string, msg: string) =>
+    navigator.clipboard.writeText(text).then(() => message.success(msg))
 
   useEffect(() => {
     const session = userInfo.getUserInfo()
@@ -133,9 +133,9 @@ export default function SearchPage() {
         onChange={e => setKeyword(k => ({ ...k, school: e.target.value }))}
         onKeyDown={e => { if (e.key === 'Enter') handleSearch() }}
       />
-      <Row style={{ marginTop: 10, marginRight: 10 }}>
-        <Button type="primary" style={{ float: 'right' }} onClick={handleSearch}>Search</Button>
-        <Button style={{ float: 'right', marginRight: 20 }} onClick={handleClear}>Clear</Button>
+      <Row style={{ marginTop: 10, gap: 8 }}>
+        <Button type="primary" onClick={handleSearch}>Search</Button>
+        <Button onClick={handleClear}>Clear</Button>
       </Row>
       <Table columns={columns} dataSource={results} rowKey="id" style={{ background: '#fff', marginTop: 20 }} />
     </Skeleton>

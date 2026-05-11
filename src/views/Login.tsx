@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Form, Input, Button, Checkbox, Card, message } from 'antd'
+import { Form, Input, Button, Checkbox, Card, App } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import axios from 'axios'
 import { UserInfo } from '@/utils/auth'
 
 export default function Login() {
+  const { message } = App.useApp()
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
   const navigate = useNavigate()

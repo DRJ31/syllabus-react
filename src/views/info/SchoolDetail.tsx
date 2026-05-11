@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams, useLocation } from 'react-router-dom'
-import { Button, Tooltip, Typography, Breadcrumb, Table, Input, Skeleton, message } from 'antd'
+import { Button, Tooltip, Typography, Breadcrumb, Table, Input, Skeleton, App } from 'antd'
 import { LoadingOutlined, StarOutlined, StarFilled, CopyOutlined } from '@ant-design/icons'
 import type { TableColumnsType } from 'antd'
 import axios from 'axios'
@@ -12,10 +12,6 @@ const { Search } = Input
 
 const searchWord = (keyword: string, origin: string) =>
   origin.toLowerCase().includes(keyword.toLowerCase())
-
-function copyToClipboard(text: string, msg: string) {
-  navigator.clipboard.writeText(text).then(() => message.success(msg))
-}
 
 function BreadcrumbMiddle({ referrer }: { referrer?: string }) {
   if (!referrer) return null
@@ -31,6 +27,7 @@ function BreadcrumbMiddle({ referrer }: { referrer?: string }) {
 }
 
 export default function SchoolDetail() {
+  const { message } = App.useApp()
   const { id } = useParams<{ id: string }>()
   const location = useLocation()
   const referrer = (location.state as { referrer?: string } | null)?.referrer
@@ -43,6 +40,9 @@ export default function SchoolDetail() {
   const [favorite, setFavorite] = useState(false)
 
   const userInfo = new UserInfo()
+
+  const copyToClipboard = (text: string, msg: string) =>
+    navigator.clipboard.writeText(text).then(() => message.success(msg))
 
   useEffect(() => {
     const session = userInfo.getUserInfo()

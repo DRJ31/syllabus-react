@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Input, Table, Tooltip, Button, Row, Typography, Breadcrumb, message, Skeleton, Badge } from 'antd'
+import { Input, Table, Tooltip, Button, Row, Typography, Breadcrumb, App, Skeleton, Badge } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
 import type { TableColumnsType } from 'antd'
 import axios from 'axios'
@@ -17,6 +17,7 @@ const searchWord = (keyword: string, origin: string) =>
   origin.toLowerCase().includes(keyword.toLowerCase())
 
 export default function UserManagement() {
+  const { message } = App.useApp()
   const [data, setData] = useState<ApiUser[]>([])
   const [results, setResults] = useState<ApiUser[]>([])
   const [loading, setLoading] = useState(true)

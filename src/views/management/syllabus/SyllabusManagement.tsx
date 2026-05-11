@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Input, Table, Divider, Tooltip, Button, Row, Breadcrumb, message, Skeleton } from 'antd'
+import { Input, Table, Divider, Tooltip, Button, Row, Breadcrumb, App, Skeleton } from 'antd'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import type { TableColumnsType } from 'antd'
 import axios from 'axios'
@@ -12,6 +12,7 @@ const searchWord = (keyword: string, origin: string) =>
   origin.toLowerCase().includes(keyword.toLowerCase())
 
 export default function SyllabusManagement() {
+  const { message } = App.useApp()
   const location = useLocation()
   const [data, setData] = useState<Syllabus[]>([])
   const [results, setResults] = useState<Syllabus[]>([])
@@ -122,9 +123,9 @@ export default function SyllabusManagement() {
         onChange={e => setKeyword(k => ({ ...k, school: e.target.value }))}
         style={{ marginTop: 10 }} onKeyDown={e => { if (e.key === 'Enter') handleSearch() }}
       />
-      <Row style={{ marginTop: 10, marginRight: 10 }}>
-        <Button type="primary" style={{ float: 'right' }} onClick={handleSearch}>Search</Button>
-        <Button style={{ float: 'right', marginRight: 20 }} onClick={handleClear}>Clear</Button>
+      <Row style={{ marginTop: 10, gap: 8 }}>
+        <Button type="primary" onClick={handleSearch}>Search</Button>
+        <Button onClick={handleClear}>Clear</Button>
       </Row>
       <Row style={{ marginTop: 10, gap: 8 }}>
         {(roleId === 2 || roleId === 3) && (

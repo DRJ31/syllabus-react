@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Input, Table, Divider, Tooltip, Button, Row, Badge, Breadcrumb, message, Skeleton } from 'antd'
+import { Input, Table, Divider, Tooltip, Button, Row, Badge, Breadcrumb, App, Skeleton } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
 import type { TableColumnsType } from 'antd'
 import axios from 'axios'
@@ -13,6 +13,7 @@ const searchWord = (keyword: string, origin: string) =>
   origin.toLowerCase().includes(keyword.toLowerCase())
 
 export default function SchoolManagement() {
+  const { message } = App.useApp()
   const [data, setData] = useState<School[]>([])
   const [results, setResults] = useState<School[]>([])
   const [loading, setLoading] = useState(true)

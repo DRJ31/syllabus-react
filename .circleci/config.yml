@@ -1,0 +1,38 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: cimg/node:lts
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:N14dawQw0mkucf+EuKqi98Z124GNapu4gc+yKHkaR9M"
+      - run:
+          name: Install Dependencies
+          command: pnpm install
+      - run:
+          name: Build Website
+          command: pnpm build
+      - run:
+          name: Upload Static Assets To Tencent COS
+          command: |
+            : "${COS_BUCKET:?COS_BUCKET is required}"
+            : "${COS_SECRET_ID:?COS_SECRET_ID is required}"
+            : "${COS_SECRET_KEY:?COS_SECRET_KEY is required}"
+            if [ -z "${COS_ENDPOINT:-}" ]; then
+              : "${COS_REGION:?COS_REGION is required when COS_ENDPOINT is not set}"
+              COS_ENDPOINT="cos.${COS_REGION}.myqcloud.com"
+            fi
+            curl -L https://cosbrowser.cloud.tencent.com/software/coscli/coscli-linux-amd64 -o coscli
+            chmod 755 coscli
+            ./coscli sync dist/ "cos://$COS_BUCKET/syllabus/" -r --exclude "^index\\.html$" --init-skip=true -i "$COS_SECRET_ID" -k "$COS_SECRET_KEY" -e "$COS_ENDPOINT"
+      - run:
+          name: Deploy
+          command: |
+            tar Jcvf dist.tar.xz dist/
+            ssh-keyscan -t rsa -p $PORT $HOST >> ~/.ssh/known_hosts
+            ssh-keyscan -t rsa $HOST1 >> ~/.ssh/known_hosts
+            scp -J $USER@$HOST1 -P $PORT dist.tar.xz $USER@$HOST:~
+            ssh $USER@$HOST -p $PORT < deploy.sh
+            curl -L https://uich.cc/notify | bash

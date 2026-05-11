@@ -1,5 +1,5 @@
 import { useLocation, Link } from 'react-router-dom'
-import { Form, Input, Tooltip, Select, Button, Typography, Breadcrumb, message } from 'antd'
+import { Form, Input, Tooltip, Select, Button, Typography, Breadcrumb, App } from 'antd'
 import { QuestionCircleOutlined } from '@ant-design/icons'
 
 const { Title } = Typography
@@ -11,6 +11,7 @@ interface EditUserData {
 }
 
 export default function EditUser() {
+  const { message } = App.useApp()
   const location = useLocation()
   const initialData = (location.state as { data: EditUserData } | null)?.data
 
