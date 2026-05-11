@@ -186,7 +186,13 @@ export default function Profile() {
           { title: 'Profile' },
         ]} />
         <Card title="User Details" extra={<Link to="/profile/edit">Edit Profile</Link>} style={{ marginTop: 20 }}>
-          <Avatar icon={<UserOutlined />} src={avatar || undefined} size={100} style={{ marginBottom: 20 }} />
+          <Avatar
+            src={avatar || undefined}
+            size={100}
+            style={{ marginBottom: 20, background: !avatar ? '#1677ff' : undefined, fontSize: 40 }}
+          >
+            {!avatar ? user.username[0].toUpperCase() : undefined}
+          </Avatar>
           <Title level={4}>Role</Title>
           <Tag color={roles[user.role_id - 1]?.color} style={{ marginBottom: 10 }}>
             {roles[user.role_id - 1]?.name}

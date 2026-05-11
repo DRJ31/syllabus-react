@@ -180,7 +180,13 @@ export default function App() {
           </Link>
         </div>
         <Dropdown menu={{ items: avatarMenuItems }} trigger={['click', 'hover']}>
-          <Avatar icon={<UserOutlined />} src={avatar || undefined} style={{ cursor: 'pointer' }} />
+          <Avatar
+            icon={!user ? <UserOutlined /> : undefined}
+            src={avatar || undefined}
+            style={{ cursor: 'pointer', background: user && !avatar ? '#1677ff' : undefined }}
+          >
+            {user && !avatar ? user.username[0].toUpperCase() : undefined}
+          </Avatar>
         </Dropdown>
       </Header>
 
