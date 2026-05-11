@@ -36,6 +36,17 @@ import AuditSchool from '@/views/management/school/AuditSchool'
 import SchoolManagement from '@/views/management/school/SchoolManagement'
 import UserManagement from '@/views/management/user/UserManagement'
 import SyllabusManagement from '@/views/management/syllabus/SyllabusManagement'
+import Login from '@/views/Login'
+import Register from '@/views/Register'
+import ForgetPassword from '@/views/ForgetPassword'
+import ResetPassword from '@/views/ResetPassword'
+import EditProfile from '@/views/profile/EditProfile'
+import ChangePassword from '@/views/profile/ChangePassword'
+import AddUser from '@/views/management/user/AddUser'
+import NewTeacherForm from '@/views/management/user/NewTeacherForm'
+import EditUser from '@/views/management/user/EditUser'
+import NewSchoolForm from '@/views/management/school/NewSchoolForm'
+import EditSchoolForm from '@/views/management/school/EditSchoolForm'
 
 const { Content, Sider, Header } = Layout
 
@@ -178,6 +189,17 @@ export default function App() {
               <Route path="/management/user/audit" element={<AuditTeacher />} />
               <Route path="/management/school" element={<SchoolManagement />} />
               <Route path="/management/school/audit" element={<AuditSchool />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/forget" element={<ForgetPassword />} />
+              <Route path="/reset/:token" element={<ResetPassword />} />
+              <Route path="/profile/edit" element={<EditProfile />} />
+              <Route path="/profile/password" element={<ChangePassword />} />
+              <Route path="/management/user/add" element={<AddUser />} />
+              <Route path="/management/user/new-teacher" element={<NewTeacherForm />} />
+              <Route path="/management/user/edit" element={<EditUser />} />
+              <Route path="/management/school/new" element={<NewSchoolForm />} />
+              <Route path="/management/school/edit" element={<EditSchoolForm />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Content>
