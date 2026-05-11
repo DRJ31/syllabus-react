@@ -61,7 +61,7 @@ export default function App() {
   const [user, setUser] = useState<User | null>(null)
   const [avatar, setAvatar] = useState('')
   const [dot, setDot] = useState(false)
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, setCollapsed] = useState(true)
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -180,7 +180,7 @@ export default function App() {
           </Link>
         </div>
         <Dropdown menu={{ items: avatarMenuItems }} trigger={['click', 'hover']}>
-          <Avatar icon={<UserOutlined />} src={avatar} style={{ cursor: 'pointer' }} />
+          <Avatar icon={<UserOutlined />} src={avatar || undefined} style={{ cursor: 'pointer' }} />
         </Dropdown>
       </Header>
 
