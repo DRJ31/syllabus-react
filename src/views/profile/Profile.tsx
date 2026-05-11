@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Typography, Card, Tabs, Tooltip, Divider, Table, Breadcrumb, Tag, App, Skeleton, Avatar } from 'antd'
-import { UserOutlined, StarFilled, CopyOutlined } from '@ant-design/icons'
+import { StarFilled, CopyOutlined } from '@ant-design/icons'
 import type { TableColumnsType } from 'antd'
 import axios from 'axios'
 import Swal from 'sweetalert2'
@@ -189,9 +189,9 @@ export default function Profile() {
           <Avatar
             src={avatar || undefined}
             size={100}
-            style={{ marginBottom: 20, background: !avatar ? '#1677ff' : undefined, fontSize: 40 }}
+            style={{ marginBottom: 20, background: '#1677ff', fontSize: 40 }}
           >
-            {!avatar ? user.username[0].toUpperCase() : undefined}
+            {user.username?.[0]?.toUpperCase()}
           </Avatar>
           <Title level={4}>Role</Title>
           <Tag color={roles[user.role_id - 1]?.color} style={{ marginBottom: 10 }}>

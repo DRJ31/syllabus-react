@@ -183,9 +183,9 @@ export default function App() {
           <Avatar
             icon={!user ? <UserOutlined /> : undefined}
             src={avatar || undefined}
-            style={{ cursor: 'pointer', background: user && !avatar ? '#1677ff' : undefined }}
+            style={{ cursor: 'pointer', background: user ? '#1677ff' : undefined }}
           >
-            {user && !avatar ? user.username[0].toUpperCase() : undefined}
+            {user ? user.username[0].toUpperCase() : undefined}
           </Avatar>
         </Dropdown>
       </Header>
