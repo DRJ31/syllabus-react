@@ -6,6 +6,9 @@ import {
   Avatar,
   Badge,
   Dropdown,
+  Drawer,
+  Button,
+  Grid,
   App as AntdApp,
   type MenuProps,
 } from 'antd'
@@ -18,6 +21,7 @@ import {
   LoginOutlined,
   FormOutlined,
   LogoutOutlined,
+  MenuOutlined,
 } from '@ant-design/icons'
 import axios from 'axios'
 import { UserInfo } from '@/utils/auth'
@@ -63,6 +67,8 @@ export default function App() {
   const location = useLocation()
   const userInfo = new UserInfo()
   const { message } = AntdApp.useApp()
+  const screens = Grid.useBreakpoint()
+  const isMobile = !screens.lg
 
   const fetchDot = useCallback(async (roleId: number, token: string) => {
     if (roleId === 1) {
@@ -151,32 +157,54 @@ export default function App() {
       : []),
   ]
 
+  const menuNode = (
+    <Menu
+      mode="inline"
+      selectedKeys={[location.pathname]}
+      items={sideMenuItems}
+      onClick={() => isMobile && setCollapsed(true)}
+    />
+  )
+
   return (
     <Layout style={{ height: '100vh' }}>
       <Header style={{ background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px', flexShrink: 0 }}>
-        <Link to="/" style={{ color: '#000', fontWeight: 600, fontSize: 18 }}>
-          CS Syllabus Repo
-        </Link>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <Button
+            type="text"
+            icon={<MenuOutlined />}
+            onClick={() => setCollapsed(c => !c)}
+          />
+          <Link to="/" style={{ color: '#000', fontWeight: 600, fontSize: 18 }}>
+            CS Syllabus Repo
+          </Link>
+        </div>
         <Dropdown menu={{ items: avatarMenuItems }} trigger={['click', 'hover']}>
           <Avatar icon={<UserOutlined />} src={avatar} style={{ cursor: 'pointer' }} />
         </Dropdown>
       </Header>
 
       <Layout style={{ overflow: 'hidden' }}>
-        <Sider
-          breakpoint="lg"
-          collapsedWidth={0}
-          theme="light"
-          collapsed={collapsed}
-          onCollapse={setCollapsed}
-          style={{ zIndex: 100, overflow: 'hidden' }}
-        >
-          <Menu
-            mode="inline"
-            selectedKeys={[location.pathname]}
-            items={sideMenuItems}
-          />
-        </Sider>
+        {isMobile ? (
+          <Drawer
+            placement="left"
+            open={!collapsed}
+            onClose={() => setCollapsed(true)}
+            title="CS Syllabus Repo"
+            styles={{ body: { padding: 0 } }}
+            size={220}
+          >
+            {menuNode}
+          </Drawer>
+        ) : (
+          <Sider
+            theme="light"
+            collapsed={collapsed}
+            style={{ zIndex: 100, overflow: 'hidden' }}
+          >
+            {menuNode}
+          </Sider>
+        )}
 
         <Layout>
           <Content style={{ padding: 24, overflowY: 'auto', overflowX: 'hidden' }}>

@@ -259,14 +259,14 @@ export default function Compare() {
 
         <Drawer
           title="Selected Syllabuses"
-          width={window.screen.width > 500 ? 360 : window.screen.width - 20}
+          size={window.screen.width > 500 ? 360 : window.screen.width - 20}
           closable={false}
           onClose={() => setDrawerOpen(false)}
           open={drawerOpen}
         >
           <Drawer
             title="Compare"
-            width={window.screen.width > 500 ? 500 : window.screen.width - 20}
+            size={window.screen.width > 500 ? 500 : window.screen.width - 20}
             closable={false}
             onClose={() => setCompareOpen(false)}
             open={compareOpen}
