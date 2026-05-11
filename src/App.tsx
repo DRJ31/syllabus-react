@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { Link, useNavigate, useLocation, Routes } from 'react-router-dom'
+import { Link, useNavigate, useLocation, Routes, Route } from 'react-router-dom'
 import {
   Layout,
   Menu,
@@ -22,6 +22,20 @@ import {
 import axios from 'axios'
 import { UserInfo } from '@/utils/auth'
 import type { User } from '@/types'
+
+import Home from '@/views/Home'
+import NotFound from '@/views/NotFound'
+import All from '@/views/info/All'
+import SearchPage from '@/views/info/SearchPage'
+import SchoolDetail from '@/views/info/SchoolDetail'
+import CourseDetail from '@/views/info/CourseDetail'
+import Profile from '@/views/profile/Profile'
+import Management from '@/views/management/Management'
+import AuditTeacher from '@/views/management/user/AuditTeacher'
+import AuditSchool from '@/views/management/school/AuditSchool'
+import SchoolManagement from '@/views/management/school/SchoolManagement'
+import UserManagement from '@/views/management/user/UserManagement'
+import SyllabusManagement from '@/views/management/syllabus/SyllabusManagement'
 
 const { Content, Sider, Header } = Layout
 
@@ -152,7 +166,19 @@ export default function App() {
         <Layout>
           <Content style={{ padding: 24, overflowX: 'hidden' }}>
             <Routes>
-              {/* Routes will be added here as pages are migrated */}
+              <Route path="/" element={<Home />} />
+              <Route path="/search" element={<SearchPage />} />
+              <Route path="/school" element={<All />} />
+              <Route path="/school/detail/:id" element={<SchoolDetail />} />
+              <Route path="/course/detail/:id" element={<CourseDetail />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/management" element={<Management />} />
+              <Route path="/management/syllabus" element={<SyllabusManagement />} />
+              <Route path="/management/user" element={<UserManagement />} />
+              <Route path="/management/user/audit" element={<AuditTeacher />} />
+              <Route path="/management/school" element={<SchoolManagement />} />
+              <Route path="/management/school/audit" element={<AuditSchool />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Content>
         </Layout>
