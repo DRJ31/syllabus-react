@@ -56,7 +56,7 @@ export default function Profile() {
       setUser(u)
 
       axios.post('/api/user/avatar', { token: session.token }).then(res => {
-        if (res.data) setAvatar('/static/img/avatar/' + res.data)
+        if (res.data) setAvatar(res.data)
       })
 
       if (u.role_id === 2 && u.school) {

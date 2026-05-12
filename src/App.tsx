@@ -100,7 +100,7 @@ export default function App() {
         const u: User = { username: res.data.user.name, role_id: res.data.user.role.id }
         setUser(u)
         const avatarRes = await axios.post('/api/user/avatar', { token: session.token })
-        if (avatarRes.data) setAvatar('/static/img/avatar/' + avatarRes.data)
+        if (avatarRes.data) setAvatar(avatarRes.data)
         await fetchDot(u.role_id, session.token)
       } else {
         message.error('User authentication failed')

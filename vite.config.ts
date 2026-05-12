@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => ({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'https://syllabus.drjchn.com',
+        target: 'http://localhost:8082',
         changeOrigin: true,
       },
       '/static': {
